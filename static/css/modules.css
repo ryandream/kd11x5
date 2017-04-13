@@ -1,7 +1,7 @@
 /*
 * Pager
 */
-    /* 分页 */
+    /*分页 */
     .ant-table-pagination {
         margin: 16px 0;
         float: right;
@@ -831,6 +831,7 @@
         border-width: 6px;
         border-radius: 50%;
         background-color: #fff;
+        margin: 0;
     }
     .downTab_tabbuy .ballbgadd {
         font-size: 16px;
@@ -2495,7 +2496,7 @@
         border-width: 7px;
         border-radius: 50%;
         background-color: #fff;
-        margin: 0 2px;
+        margin: 0 -3px 0 9px;
     }
     .ballbg0 {
         border-color: #ec483d;
@@ -3348,6 +3349,7 @@
         font-size: 12px;
         border-bottom: 1px solid #e9e9e9;
         position: relative;
+        border-right: 0;
     }
     .contentdata_openprizedata .ant-table-row td:nth-child(2) {
         color: #d21e1e;
