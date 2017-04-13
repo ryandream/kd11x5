@@ -89,6 +89,7 @@
                 return ajax.apiBindMobile({
                     mobile: this.mobile
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 805){
                         this.setUser({
                             mobile: this.mobile

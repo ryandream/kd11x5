@@ -11,6 +11,7 @@
 
 <script>
     import * as ajax from '../api';
+    import { datatype } from '../common/basic';
     import ProductBasicInfo from '../common/ProductBasicInfo';
     import gameBasic from '../mixins/gameBasic';
 
@@ -80,10 +81,14 @@
                 return ajax.apiFetchGameStateInfo({
                     gameId: gameId
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
                         return;
                     }
+                    
+                    if(datatype(json) !== 'array') return;
+
                     json.forEach(data => {
                         this.setPrevLottery(gameId, {
                             number: data.OPEN_RESULTS.N,
@@ -97,20 +102,24 @@
                 return ajax.apiFetchFutureLotteries({
                     gameId: gameId
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
+                        return;
+                    }
+                    
+                    let list = [];
+                    if(datatype(json) === 'array'){
                         json.forEach(item => {
                             list.push({
                                 number: item.Numbers,
                                 time: item.Open_Time
                             });
                         });
-                        this.setGame(gameId, {
-                            futureLotteries: list
-                        });
                     }
+                    this.setGame(gameId, {
+                        futureLotteries: list
+                    });
                 });
             },
             fetchGameInfo(){
@@ -118,57 +127,62 @@
                 return ajax.apiFetchGameInfo({
                     gameId: gameId
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let categories = {}, products = {}, isAndValue = false, productBasicInfo, subProductBasicInfo;
-                        json.items.forEach(item => {
-                            isAndValue = item.no === gameId + '-t1';
-                            categories[item.no] = {
-                                id: item.no,
-                                name: item.name,
-                                max: item.max,
-                            };
-                            productBasicInfo = ProductBasicInfo[item.no.replace(gameId + '-', '')];
-                            if(isAndValue){
-                                categories[item.no].tip = productBasicInfo.tip;
-                            }
-                            // generate products data
-                            products[item.no] = {};
-                            item.items.forEach((subItem, index) => {
-                                let val = parseInt(subItem.value, 10);
-                                products[item.no][subItem.no] = {
-                                    id: subItem.no, // 玩法编码
-                                    name: subItem.name, // 名称
-                                    value: val, // 玩法值
-                                    specialValue: val, // 特殊赔率玩法值
-                                    odds: 0, // 标准赔率
-                                    specialOdds: 0, // 特殊赔率、
-                                    enableBet: 1, // 是否允许投注
-                                    min: 0, // 最低下注
-                                    max: 0, // 最高下注
-                                    selected: false
-                                };
-                                if(!isAndValue){
-                                    subProductBasicInfo = productBasicInfo[subItem.no.replace(gameId, 'id')];
-                                    products[item.no][subItem.no].tip = subProductBasicInfo.tip;
-                                    products[item.no][subItem.no].ballsPicker = {
-                                        type: subProductBasicInfo.type,
-                                        titles: subProductBasicInfo.titles,
-                                        max: subProductBasicInfo.max, // only for 胆拖
-                                        mins: subProductBasicInfo.mins,
-                                        totalMin: subProductBasicInfo.totalMin
-                                    };
-                                }
-                            });
-                        });
-                        this.setCategories(gameId, {
-                            categories: categories
-                        });
-                        this.setProducts(gameId, {
-                            value: products
-                        });
+                        return;
                     }
+
+                    let categories = {}, products = {}, isAndValue = false, productBasicInfo, subProductBasicInfo;
+                    
+                    if(datatype(json.items) !== 'array') return;
+
+                    json.items.forEach(item => {
+                        isAndValue = item.no === gameId + '-t1';
+                        categories[item.no] = {
+                            id: item.no,
+                            name: item.name,
+                            max: item.max,
+                        };
+                        productBasicInfo = ProductBasicInfo[item.no.replace(gameId + '-', '')];
+                        if(isAndValue){
+                            categories[item.no].tip = productBasicInfo.tip;
+                        }
+                        // generate products data
+                        products[item.no] = {};
+                        item.items.forEach((subItem, index) => {
+                            let val = parseInt(subItem.value, 10);
+                            products[item.no][subItem.no] = {
+                                id: subItem.no, // 玩法编码
+                                name: subItem.name, // 名称
+                                value: val, // 玩法值
+                                specialValue: val, // 特殊赔率玩法值
+                                odds: 0, // 标准赔率
+                                specialOdds: 0, // 特殊赔率、
+                                enableBet: 1, // 是否允许投注
+                                min: 0, // 最低下注
+                                max: 0, // 最高下注
+                                selected: false
+                            };
+                            if(!isAndValue){
+                                subProductBasicInfo = productBasicInfo[subItem.no.replace(gameId, 'id')];
+                                products[item.no][subItem.no].tip = subProductBasicInfo.tip;
+                                products[item.no][subItem.no].ballsPicker = {
+                                    type: subProductBasicInfo.type,
+                                    titles: subProductBasicInfo.titles,
+                                    max: subProductBasicInfo.max, // only for 胆拖
+                                    mins: subProductBasicInfo.mins,
+                                    totalMin: subProductBasicInfo.totalMin
+                                };
+                            }
+                        });
+                    });
+                    this.setCategories(gameId, {
+                        categories: categories
+                    });
+                    this.setProducts(gameId, {
+                        value: products
+                    });
                 });
             },
             fetchOdds(categoryId, noloading){
@@ -177,10 +191,13 @@
                     gameId: gameId,
                     categoryId: categoryId
                 }, noloading).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         // console.log(json);
                         return;
                     }
+                    if(datatype(json) !== 'array') return;
+                    
                     json.forEach(item => {
                         this.setProducts(gameId, {
                             categoryId: categoryId,

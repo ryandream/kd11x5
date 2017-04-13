@@ -25,6 +25,7 @@
 
 <script>
     import * as ajax from '../api';
+    import { datatype } from '../common/basic';
     import * as Lottery from '../common/Lottery';
 
     import HomeCarousel from '../components/HomeCarousel';
@@ -54,10 +55,14 @@
                 return ajax.apiFetchGameStateInfo({
                     gameId: ''
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
                         return;
                     }
+                    
+                    if(datatype(json) !== 'array') return;
+
                     json.forEach(data => {
                         this.setPrevLottery(data.GAMENO, {
                             number: data.OPEN_RESULTS.N,

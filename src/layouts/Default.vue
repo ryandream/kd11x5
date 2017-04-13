@@ -84,19 +84,21 @@
             // methods
             fetchRealtimeData(){
                 return ajax.apiLoopRealtimeData('noloading').then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
+                        return;
+                    }
+
+                    if(json.I === 0){ // 下线
+                        this.setUser({
+                            isUserLogined: false
+                        });
                     }else{
-                        if(json.I === 0){ // 下线
+                        if(json.A === 1){
                             this.setUser({
-                                isUserLogined: false
+                                balance: json.B
                             });
-                        }else{
-                            if(json.A === 1){
-                                this.setUser({
-                                    balance: json.B
-                                });
-                            }
                         }
                     }
                 });

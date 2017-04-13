@@ -110,7 +110,7 @@
 
 <script>
     import * as ajax from '../api';
-    import { getNameByCode, kdTimestamp } from '../common/basic';
+    import { datatype, getNameByCode, kdTimestamp } from '../common/basic';
     import gameBasic from '../mixins/gameBasic';
 
     export default {
@@ -163,18 +163,22 @@
                     lengthPerPage: this.lengthPerPage, //每页记录数，提交空字符串时默认为15
                     gameId: this.currentGame.id //游戏编码
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
+                        return;
+                    }
 
-                        this.currentLottery = {
-                            number: json.game.numbers, // 当期正在销售的期号
-                            endTime: json.game.endDate // 投注截止时间
-                        };
-                        this.currentPage = parseInt(json.page, 10);
-                        this.totalPages = parseInt(json.totalPage, 10);
-                        this.totalCount = parseInt(json.total, 10);
+                    let list = [];
+
+                    this.currentLottery = {
+                        number: json.game.numbers, // 当期正在销售的期号
+                        endTime: json.game.endDate // 投注截止时间
+                    };
+                    this.currentPage = parseInt(json.page, 10);
+                    this.totalPages = parseInt(json.totalPage, 10);
+                    this.totalCount = parseInt(json.total, 10);
+                    if(datatype(json.list) === 'array'){
                         json.list.forEach(item => {
                             list.push({
                                 id: item.planId, // 合买id
@@ -196,8 +200,8 @@
                                 count: 1
                             });
                         });
-                        this.list = list;
                     }
+                    this.list = list;
                 });
             },
             joinToTogetherBuy(){
@@ -207,6 +211,7 @@
                     count: this.alert.count,
                     gameId: this.currentGame.id
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 674){
                         this.alert.status = 'success';
                         this.alert.validate = json.S + ': ' + json.D;

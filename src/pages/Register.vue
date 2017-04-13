@@ -153,6 +153,7 @@
                     mobile: this.user.mobile,
                     secureCode: this.secureCode
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     this.changeSecureCode();
 
                     if(json.S === 191){ // 注册成功

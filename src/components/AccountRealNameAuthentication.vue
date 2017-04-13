@@ -96,6 +96,7 @@
                     realName: this.realName,
                     password: this.password
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 805){
                         this.setUser({
                             realName: this.realName

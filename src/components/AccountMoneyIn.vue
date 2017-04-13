@@ -5,7 +5,7 @@
             <a href="javascript:;">客服充值</a>
         </div>
         <div class="ant-card">
-            <div class="ant-card-body">
+            <div class="ant-card-body" v-if="methodsOfMoneyIn[method].status">
                 <form v-if="method === 'GSRK'" class="clearfix">
                     <div class="fieldset">
                         <div class="ant-form-item">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="ant-form-item">
                             <div class="ant-form-item-label"></div>
-                            <div class="ant-col-20"><button type="button" class="ant-btn-cz" @click="applyMoneyInByCompany"><span>提交申请</span></button></div>
+                            <div class="ant-col-20"><button type="button" class="ant-btn-cz" @click="applyMoneyInByCompany" key="apply-money-in-by-company"><span>提交申请</span></button></div>
                         </div>
                     </div>
                     <div class="description" v-html="method === 'GSRK' && methodsOfMoneyIn.GSRK.list[type] && methodsOfMoneyIn.GSRK.list[type].description"></div>
@@ -57,9 +57,12 @@
                     </div>
                     <div class="ant-form-item">
                         <div class="ant-form-item-label"></div>
-                        <div class="ant-col-20"><button type="button" class="ant-btn-cz" @click="createOrderNo"><span>立即充值</span></button></div>
+                        <div class="ant-col-20"><button type="button" class="ant-btn-cz" @click="createOrderNo" key="create-order-no"><span>立即充值</span></button></div>
                     </div>
                 </form>
+            </div>
+            <div class="ant-card-body maintaining" v-else>
+                <p>通道维护中……，请通过“<a @click="setActiveMethod('GSRK')">公司入款</a>”或者“<a href="javascript:;">客服充值</a>”。</p>
             </div>
         </div>
     </div>
@@ -67,7 +70,7 @@
 
 <script>
     import * as ajax from '../api';
-    import { length, getItemOfObject } from '../common/basic';
+    import { datatype, length, getItemOfObject } from '../common/basic';
     import ProvCity from '../common/ProvCity';
 
     export default {
@@ -81,15 +84,15 @@
                     },
                     ZFB: {
                         name: '支付宝',
-                        status: 1
+                        status: 0
                     },
                     WY: {
                         name: '网银支付',
-                        status: 1
+                        status: 0
                     },
                     CZK: {
                         name: '充值卡',
-                        status: 1
+                        status: 0
                     },
                     GSRK: {
                         name: '公司入款',
@@ -165,10 +168,14 @@
             // methods
             fetchMoneyInConfigsOfCompany(){
                 return ajax.apiFetchMoneyInConfigsOfCompany().then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = {}, key;
+                        return;
+                    }
+
+                    let list = {}, key;
+                    if(datatype(json) === 'array') {
                         json.forEach((item, index) => {
                             if(index === 0) this.type = item.id;
 
@@ -178,8 +185,8 @@
                                 description: item.description
                             };
                         });
-                        this.methodsOfMoneyIn.GSRK.list = list;
                     }
+                    this.methodsOfMoneyIn.GSRK.list = list;
                 });
             },
             applyMoneyInByCompany(){
@@ -200,6 +207,7 @@
                     amount: this.amount,
                     infoOfAccount: info
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 824){
                         this.$alert({
                             type: 'success',
@@ -240,17 +248,19 @@
                     method: this.method,
                     amount: this.amount
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         this.$alert({
                             type: 'error',
                             title: '错误',
                             content: json.S + ': ' + json.D
                         });
-                    }else{
-                        let url = json.PAY_URL + (json.PAY_URL.indexOf('?') > -1 ? '&' : '?') + 'ORDER_NO=' + json.ORDER_NO + '&ORDER_AMOUNT=' + this.amount + '&BACK_URL=' + encodeURIComponent(json.BACK_URL);
-
-                        window.location.href = url;
+                        return;
                     }
+
+                    let url = json.PAY_URL + (json.PAY_URL.indexOf('?') > -1 ? '&' : '?') + 'ORDER_NO=' + json.ORDER_NO + '&ORDER_AMOUNT=' + this.amount + '&BACK_URL=' + encodeURIComponent(json.BACK_URL);
+
+                    window.location.href = url;
                 });
             },
 
@@ -258,11 +268,13 @@
             validate(){
                 let flag = true;
                 if(!this.validateAmount(this.amount)) flag = false;
-                if(this.type === 'bank'){
-                    if(!this.validateBankCardNo(this.bankCardNo)) flag = false;
-                    if(!this.validateUserNameOfBankCard(this.userNameOfbankCard)) flag = false;
-                }else{
-                    if(!this.validateUserName(this.userName)) flag = false;
+                if(this.method === 'GSRK'){
+                    if(this.type === 'bank'){
+                        if(!this.validateBankCardNo(this.bankCardNo)) flag = false;
+                        if(!this.validateUserNameOfBankCard(this.userNameOfbankCard)) flag = false;
+                    }else{
+                        if(!this.validateUserName(this.userName)) flag = false;
+                    }
                 }
 
                 return flag;
@@ -344,5 +356,11 @@
     .description {
         width: 50%;
         float: right;
+    }
+    .maintaining {
+        font-size: .875rem;
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #666;
     }
 </style>

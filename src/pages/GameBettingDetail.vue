@@ -197,7 +197,7 @@
 
 <script>
     import * as ajax from '../api';
-    import { getNameByCode } from '../common/basic';
+    import { datatype, getNameByCode } from '../common/basic';
     import gameBasic from '../mixins/gameBasic';
 
     export default {
@@ -263,32 +263,36 @@
                     id: this.id,
                     gameId: this.gameId
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        // this.id = json.planId; // id
-                        this.userName = json.userName; // 发起人
-                        this.gameName = this.gameList[json.gameNo].name; // 游戏编码
-                        this.progress = json.progress; // 进度
-                        this.totalAmount = json.amount; // 总金额
-                        this.unitAmount = json.perAmount; // 每份金额
-                        this.totalCount = json.divNum; // 总份数
-                        this.selfCount = json.buyNum; // 发起人购买份数
-                        this.status = getNameByCode(json.state, ['未满员', '已满员', '已出票', '已撤单']); // 方案状态 1、未满员 2已满员 3、已出票 4 已撤单
-                        this.usersLength = json.joinNum; // 跟单人数
-                        this.number = json.Numbers; // 期号
-                        this.startTime = json.createDate; //方案发起时间
-                        this.endTime = json.endDate; //认购截止时间
-                        this.name = json.planTitle; //方案名称
-                        this.type = getNameByCode(json.type, ['自购', '追号', '合买', '跟单']); // 方案类型 //1 自购 2追号 3 合买 4跟单
-                        this.bonus = json.bonus; // 发起人提成
-                        this.multiple = json.times; // 倍数
-                        this.winningStatus = getNameByCode(json.settleType, ['未兑奖', '未中奖', '已中奖']); // 1 未兑奖 2 未中奖3 已中奖
-                        this.totalAwardAmount = json.totalAward; // 总奖金
-                        this.unitAwardAmount = json.perAward; // 每份奖金
-                        this.balls = json.open;  // 开奖号码
+                        return;
+                    }
 
-                        let list = [];
+                    // this.id = json.planId; // id
+                    this.userName = json.userName; // 发起人
+                    this.gameName = this.gameList[json.gameNo].name; // 游戏编码
+                    this.progress = json.progress; // 进度
+                    this.totalAmount = json.amount; // 总金额
+                    this.unitAmount = json.perAmount; // 每份金额
+                    this.totalCount = json.divNum; // 总份数
+                    this.selfCount = json.buyNum; // 发起人购买份数
+                    this.status = getNameByCode(json.state, ['未满员', '已满员', '已出票', '已撤单']); // 方案状态 1、未满员 2已满员 3、已出票 4 已撤单
+                    this.usersLength = json.joinNum; // 跟单人数
+                    this.number = json.Numbers; // 期号
+                    this.startTime = json.createDate; //方案发起时间
+                    this.endTime = json.endDate; //认购截止时间
+                    this.name = json.planTitle; //方案名称
+                    this.type = getNameByCode(json.type, ['自购', '追号', '合买', '跟单']); // 方案类型 //1 自购 2追号 3 合买 4跟单
+                    this.bonus = json.bonus; // 发起人提成
+                    this.multiple = json.times; // 倍数
+                    this.winningStatus = getNameByCode(json.settleType, ['未兑奖', '未中奖', '已中奖']); // 1 未兑奖 2 未中奖3 已中奖
+                    this.totalAwardAmount = json.totalAward; // 总奖金
+                    this.unitAwardAmount = json.perAward; // 每份奖金
+                    this.balls = json.open;  // 开奖号码
+
+                    let list = [];
+                    if(datatype(json.bet) === 'array'){
                         json.bet.forEach(item => { // 投注内容
                             list.push({
                                 name: item.name, // 玩法名称
@@ -298,19 +302,23 @@
                                 amount: item.amount // 投注金额
                             });
                         });
-                        this.bettingContent = list;
+                    }
+                    this.bettingContent = list;
 
-                        list = [];
+                    list = [];
+                    if(datatype(json.user) === 'array'){
                         json.user.forEach(item => { //参与用户
                             let buyList = [];
-                            item.buy.forEach(subItem => {
-                                buyList.push({
-                                    type: subItem.type, // 参与方式
-                                    time: subItem.createDate, // 购买时间
-                                    amount: subItem.amount, // 购买金额
-                                    status: subItem.status // 状态
+                            if(datatype(item.buy) === 'array'){
+                                item.buy.forEach(subItem => {
+                                    buyList.push({
+                                        type: subItem.type, // 参与方式
+                                        time: subItem.createDate, // 购买时间
+                                        amount: subItem.amount, // 购买金额
+                                        status: subItem.status // 状态
+                                    });
                                 });
-                            });
+                            }
                             list.push({
                                 userName: item.userName, //名字
                                 totalAmount: item.amount, //共计金额
@@ -319,8 +327,8 @@
                                 buyList: buyList // 该用户的所有购买记录
                             });
                         });
-                        this.users = list;
                     }
+                    this.users = list;
                 });
             },
             switchTab(tabNav){

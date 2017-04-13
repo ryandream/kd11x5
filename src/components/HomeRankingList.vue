@@ -28,6 +28,7 @@
         methods: {
             fetchRankingList(){
                 return ajax.apiFetchRankingList().then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
                         return;
