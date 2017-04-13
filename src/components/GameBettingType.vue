@@ -149,7 +149,7 @@
 
 <script>
     import * as ajax from '../api';
-    import { length } from '../common/basic';
+    import { datatype, length } from '../common/basic';
     import gameBasic from '../mixins/gameBasic';
 
     export default {
@@ -325,10 +325,14 @@
                     gameId: gameId,
                     length: 50
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
+                        return;
+                    }
+
+                    let list = [];
+                    if(datatype(json) === 'array'){
                         json.forEach(item => {
                             list.push({
                                 number: item.Numbers,
@@ -337,9 +341,9 @@
                                 endTime: item.End_Date
                             });
                         });
-                        this.futureLotteries = list;
-                        this.selectNumbers(this.numbersLength || this.customNumbersLength);
                     }
+                    this.futureLotteries = list;
+                    this.selectNumbers(this.numbersLength || this.customNumbersLength);
                 });
             },
             selectNumbers(len){

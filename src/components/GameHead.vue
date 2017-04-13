@@ -1,7 +1,7 @@
 <template>
     <div class="open_containers">
         <div class="cz_logo"><h2>{{ gameName }}</h2>
-            <div class="sywicon_ticketlist big_lottery_js"></div>
+            <div class="sywicon_ticketlist" :class="'big_lottery_' + gameId"></div>
         </div>
         <div class="cz_daojishi">
             <div class="open_issue" v-if="currentLottery.status">
@@ -50,6 +50,9 @@
             },
             closeTime(){
                 return this.currentGame.closeTime;
+            },
+            gameId(){
+                return this.currentGame.id;
             },
             gameName(){
                 return this.currentGame.name;
@@ -134,10 +137,14 @@
                 return ajax.apiFetchFutureLotteries({
                     gameId: gameId
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
+                        return;
+                    }
+
+                    let list = [];
+                    if(datatype(json) === 'array'){
                         json.forEach(item => {
                             list.push({
                                 number: item.Numbers,
@@ -146,10 +153,10 @@
                                 endTime: item.End_Date
                             });
                         });
-                        this.setGame(gameId, {
-                            futureLotteries: list
-                        });
                     }
+                    this.setGame(gameId, {
+                        futureLotteries: list
+                    });
                 });
             },
             fetchPrevLotteryOpenedResult(){
@@ -157,6 +164,7 @@
                 return ajax.apiFetchGameStateInfo({
                     gameId: gameId
                 }, 'noloading').then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
                         return;

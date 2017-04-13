@@ -40,6 +40,7 @@
 
 <script>
     import * as ajax from '../api';
+    import { datatype } from '../common/basic';
     import { largeOrSmallOfAndValue, oddOrEvenOfAndValue } from '../common/Lottery';
     import gameBasic from '../mixins/gameBasic';
 
@@ -94,18 +95,22 @@
                 return ajax.apiFetchGameLotteryResultNotice({
                     gameId: this.currentGame.id
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
+                        return;
+                    }
+
+                    let list = [];
+                    if(datatype(json) === 'array'){
                         json.forEach(item => {
                             list.push({
                                 number: item.NUMBER.split('').slice(8).join(''),
                                 balls: item.OPEN_NUMBER
                             });
                         });
-                        this.list = list;
                     }
+                    this.list = list;
                 });
             }
         }

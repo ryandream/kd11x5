@@ -86,7 +86,7 @@
 
 <script>
     import * as ajax from '../api';
-    import { kdDateObject, kdDateTime } from '../common/basic';
+    import { datatype, kdDateObject, kdDateTime } from '../common/basic';
     import Flatpickr from 'flatpickr';
     import flatpickrCSS from 'flatpickr/dist/themes/material_blue.css';
 
@@ -179,13 +179,17 @@
                     endDate: this.sheetRecordOfMoneyOut.endDate,
                     status: this.sheetRecordOfMoneyOut.status
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
-                        this.sheetRecordOfMoneyOut.currentPage = parseInt(json.page, 10);
-                        this.sheetRecordOfMoneyOut.totalPages = parseInt(json.totalPage, 10);
-                        this.sheetRecordOfMoneyOut.totalCount = parseInt(json.total, 10);
+                        return;
+                    }
+
+                    let list = [];
+                    this.sheetRecordOfMoneyOut.currentPage = parseInt(json.page, 10);
+                    this.sheetRecordOfMoneyOut.totalPages = parseInt(json.totalPage, 10);
+                    this.sheetRecordOfMoneyOut.totalCount = parseInt(json.total, 10);
+                    if(datatype(json.list) === 'array') {
                         json.list.forEach(item => {
                             list.push({
                                 id: item.id, // 
@@ -196,8 +200,8 @@
                                 comment: item.comment
                             });
                         });
-                        this.sheetRecordOfMoneyOut.list = list;
                     }
+                    this.sheetRecordOfMoneyOut.list = list;
                 });
             },
             switchPanel(navId){
@@ -205,6 +209,7 @@
             },
             fetchCaption(){
                 return ajax.apiFetchCaptionOfMoneyOut().then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 320){
                         this.caption = json.D;
                     }else{
@@ -224,6 +229,7 @@
                     amount: this.amount,
                     agreePayFee: this.agreePayFee
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 310){
                         this.amount = '';
                         this.agreePayFee = '';

@@ -49,6 +49,7 @@
             doLogout(){
                 let vm = this;
                 return ajax.apiLogout().then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 190){
                         this.$alert({
                             type: 'success',

@@ -57,6 +57,7 @@ const mutations = {
 const actions = {
     uFetchUserInfo({ commit }){
         return ajax.apiFetchUserInfo().then(json => {
+            if(typeof json === 'undefined') return;
             if(typeof json.S !== 'undefined'){
                 console.log(json);
                 return;
@@ -83,6 +84,7 @@ const actions = {
         let vm = payload.vm || {};
 
         return ajax.apiFetchUserDetail().then(json => {
+            if(typeof json === 'undefined') return;
             if(typeof json.S !== 'undefined'){
                 console.log(json);
                 return;

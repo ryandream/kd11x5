@@ -148,6 +148,7 @@
                     numbers: this.bettingType.type === 2 ? this.bettingType.value.join(';') : '',
                     togetherBuyData: togetherBuyData
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 200){
                         this.$alert({
                             type: "success",

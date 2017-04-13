@@ -182,6 +182,7 @@
                     bankCardNo: this.bankCardNo,
                     bankDetail: this.bank + '-地址： ' + this.prov + this.city + this.bankAddress
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 780){
                         this.setUser({
                             bankCardNo: this.bankCardNo

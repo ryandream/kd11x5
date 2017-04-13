@@ -63,7 +63,7 @@
 
 <script>
     import * as ajax from '../api';
-    import { kdDateTime } from '../common/basic';
+    import { datatype, kdDateTime } from '../common/basic';
     import { largeOrSmallOfAndValue, oddOrEvenOfAndValue } from '../common/Lottery';
     import gameBasic from '../mixins/gameBasic';
     import Flatpickr from 'flatpickr';
@@ -155,13 +155,17 @@
                     endNumber: !lengthPerPage && this.searchType === 'issue' ? this.endNumber : '',
                     date: !lengthPerPage && this.searchType === 'date' ? this.date : ''
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
-                        this.history.currentPage = parseInt(json.page, 10);
-                        this.history.totalPages = parseInt(json.totalPage, 10);
-                        this.history.totalCount = parseInt(json.total, 10);
+                        return;
+                    }
+
+                    let list = [];
+                    this.history.currentPage = parseInt(json.page, 10);
+                    this.history.totalPages = parseInt(json.totalPage, 10);
+                    this.history.totalCount = parseInt(json.total, 10);
+                    if(datatype(json.list) === 'array'){
                         json.list.forEach(item => {
                             list.push({
                                 number: item.NUMBER,
@@ -169,8 +173,8 @@
                                 time: item.OPEN_TIME
                             });
                         });
-                        this.history.list = list;
                     }
+                    this.history.list = list;
                 });
             },
             searchByIssues(pageNum){

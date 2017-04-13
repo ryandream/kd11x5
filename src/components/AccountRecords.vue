@@ -252,7 +252,7 @@
 
 <script>
     import * as ajax from '../api';
-    import { kdDateObject, kdDateTime, isNumberic, getNameByCode } from '../common/basic';
+    import { datatype, kdDateObject, kdDateTime, isNumberic, getNameByCode } from '../common/basic';
     import gameBasic from '../mixins/gameBasic';
     import Flatpickr from 'flatpickr';
     import flatpickrCSS from 'flatpickr/dist/themes/material_blue.css';
@@ -402,13 +402,17 @@
                     status: this.sheetRecordOfBetting.status,
                     type: this.sheetRecordOfBetting.type
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [], totalAmount = 0, totalAwardAmount = 0;
-                        this.sheetRecordOfBetting.currentPage = parseInt(json.page, 10);
-                        this.sheetRecordOfBetting.totalPages = parseInt(json.totalPage, 10);
-                        this.sheetRecordOfBetting.totalCount = parseInt(json.total, 10);
+                        return;
+                    }
+
+                    let list = [], totalAmount = 0, totalAwardAmount = 0;
+                    this.sheetRecordOfBetting.currentPage = parseInt(json.page, 10);
+                    this.sheetRecordOfBetting.totalPages = parseInt(json.totalPage, 10);
+                    this.sheetRecordOfBetting.totalCount = parseInt(json.total, 10);
+                    if(datatype(json.list) === 'array') {
                         json.list.forEach(item => {
                             list.push({
                                 id: item.planId, // 投注记录ID
@@ -425,10 +429,10 @@
                             totalAmount += item.buyAmount;
                             totalAwardAmount += isNumberic(item.awardAmount) ? item.awardAmount : 0;
                         });
-                        this.sheetRecordOfBetting.list = list;
-                        this.sheetRecordOfBetting.totalAmount = totalAmount;
-                        this.sheetRecordOfBetting.totalAwardAmount = totalAwardAmount;
                     }
+                    this.sheetRecordOfBetting.list = list;
+                    this.sheetRecordOfBetting.totalAmount = totalAmount;
+                    this.sheetRecordOfBetting.totalAwardAmount = totalAwardAmount;
                 });
             },
             fetchContinuousBettingRecords(pageNum){
@@ -440,13 +444,17 @@
                     gameId: this.sheetRecordOfContinueBetting.gameId,
                     status: this.sheetRecordOfContinueBetting.status
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
-                        this.sheetRecordOfContinueBetting.currentPage = parseInt(json.page, 10);
-                        this.sheetRecordOfContinueBetting.totalPages = parseInt(json.totalPage, 10);
-                        this.sheetRecordOfContinueBetting.totalCount = parseInt(json.total, 10);
+                        return;
+                    }
+
+                    let list = [];
+                    this.sheetRecordOfContinueBetting.currentPage = parseInt(json.page, 10);
+                    this.sheetRecordOfContinueBetting.totalPages = parseInt(json.totalPage, 10);
+                    this.sheetRecordOfContinueBetting.totalCount = parseInt(json.total, 10);
+                    if(datatype(json.list) === 'array') {
                         json.list.forEach(item => {
                             list.push({
                                 id: item.planId, // id
@@ -459,8 +467,8 @@
                                 cancelNumbersLength: item.cancelNum //取消期数
                             });
                         });
-                        this.sheetRecordOfContinueBetting.list = list;
                     }
+                    this.sheetRecordOfContinueBetting.list = list;
                 });
             },
             fetchRecoredOfMoneyIn(pageNum){ // sheet b
@@ -470,13 +478,17 @@
                     startDate: this.sheetRecordOfMoneyIn.startDate,
                     endDate: this.sheetRecordOfMoneyIn.endDate
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
-                        this.sheetRecordOfMoneyIn.currentPage = parseInt(json.page, 10);
-                        this.sheetRecordOfMoneyIn.totalPages = parseInt(json.totalPage, 10);
-                        this.sheetRecordOfMoneyIn.totalCount = parseInt(json.total, 10);
+                        return;
+                    }
+
+                    let list = [];
+                    this.sheetRecordOfMoneyIn.currentPage = parseInt(json.page, 10);
+                    this.sheetRecordOfMoneyIn.totalPages = parseInt(json.totalPage, 10);
+                    this.sheetRecordOfMoneyIn.totalCount = parseInt(json.total, 10);
+                    if(datatype(json.list) === 'array') {
                         json.list.forEach(item => {
                             list.push({
                                 id: item.id, // 
@@ -486,8 +498,8 @@
                                 type: item.Type // 类型
                             });
                         });
-                        this.sheetRecordOfMoneyIn.list = list;
                     }
+                    this.sheetRecordOfMoneyIn.list = list;
                 });
             },
             fetchRecoredOfMoneyOut(pageNum){
@@ -498,13 +510,17 @@
                     endDate: this.sheetRecordOfMoneyOut.endDate,
                     status: this.sheetRecordOfMoneyOut.status
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        let list = [];
-                        this.sheetRecordOfMoneyOut.currentPage = parseInt(json.page, 10);
-                        this.sheetRecordOfMoneyOut.totalPages = parseInt(json.totalPage, 10);
-                        this.sheetRecordOfMoneyOut.totalCount = parseInt(json.total, 10);
+                        return;
+                    }
+                    
+                    let list = [];
+                    this.sheetRecordOfMoneyOut.currentPage = parseInt(json.page, 10);
+                    this.sheetRecordOfMoneyOut.totalPages = parseInt(json.totalPage, 10);
+                    this.sheetRecordOfMoneyOut.totalCount = parseInt(json.total, 10);
+                    if(datatype(json.list) === 'array') {
                         json.list.forEach(item => {
                             list.push({
                                 id: item.id, // 
@@ -515,8 +531,8 @@
                                 comment: item.comment
                             });
                         });
-                        this.sheetRecordOfMoneyOut.list = list;
                     }
+                    this.sheetRecordOfMoneyOut.list = list;
                 });
             }
         }

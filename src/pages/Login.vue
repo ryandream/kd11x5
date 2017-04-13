@@ -114,6 +114,7 @@
                     password: this.user.password,
                     secureCode: this.secureCode
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     this.changeSecureCode();
                     
                     if(json.S === 120){ // 登录成功
@@ -156,6 +157,7 @@
                 return ajax.apiSaveIntroducer({
                     introducerId: this.introducer
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S !== '180'){
                         console.log(json);
                     }else{

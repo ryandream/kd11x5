@@ -34,6 +34,7 @@
         methods: {
             fetchNoticesList(){
                 return ajax.apiFetchNoticeList().then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
                         return;

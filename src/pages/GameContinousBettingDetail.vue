@@ -106,6 +106,7 @@
 
 <script>
     import * as ajax from '../api';
+    import { datatype } from '../common/basic';
     import gameBasic from '../mixins/gameBasic';
 
     export default {
@@ -146,20 +147,24 @@
                     id: this.id,
                     gameId: this.gameId
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
-                    }else{
-                        this.userName = json.userName; // 追号用户
-                        this.gameName = this.gameList[json.gameNo].name; // 游戏编码
-                        
-                        this.type = json.type; // 追号类型
-                        this.amount = json.amount; // 总追号金额
-                        this.finishedNumbersLength = json.finishNum; // 已完成期数
-                        this.totalNumbersLength = json.totalNum; // 总期数
-                        this.cancelNumbersLength = json.cancelNum; // 已取消期数
-                        this.isStopAfterWin = json.isStop; // 中奖后停止
-                        
-                        let list = [];
+                        return;
+                    }
+                    
+                    this.userName = json.userName; // 追号用户
+                    this.gameName = this.gameList[json.gameNo].name; // 游戏编码
+                    
+                    this.type = json.type; // 追号类型
+                    this.amount = json.amount; // 总追号金额
+                    this.finishedNumbersLength = json.finishNum; // 已完成期数
+                    this.totalNumbersLength = json.totalNum; // 总期数
+                    this.cancelNumbersLength = json.cancelNum; // 已取消期数
+                    this.isStopAfterWin = json.isStop; // 中奖后停止
+                    
+                    let list = [];
+                    if(datatype(json.bet) === 'array'){
                         json.bet.forEach(item => { // 投注内容
                             list.push({
                                 name: item.name, // 玩法名称
@@ -169,8 +174,10 @@
                                 amount: item.amount // 投注金额
                             });
                         });
-                        this.bettingContent = list;
-                        list = [];
+                    }
+                    this.bettingContent = list;
+                    list = [];
+                    if(datatype(json.detail) === 'array'){
                         json.detail.forEach(item => { // 追号详情
                             list.push({
                                 number: item.Numbers, // 期号
@@ -180,8 +187,8 @@
                                 awardAmount: item.award // 中奖
                             });
                         });
-                        this.continousDetail = list;
                     }
+                    this.continousDetail = list;
                 });
             }
         }

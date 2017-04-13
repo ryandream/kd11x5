@@ -22,10 +22,12 @@
         methods: {
             fetchAdsList(){
                 return ajax.apiFetchAdvertisement().then(json => {
+                    if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
                         console.log(json);
                         return;
                     }
+
                     if(datatype(json) !== 'array') return;
 
                     let list = [];

@@ -91,6 +91,7 @@
                     oldPassword: this.oldPassword,
                     password: this.password
                 }).then(json => {
+                    if(typeof json === 'undefined') return;
                     if(json.S === 768){
                         // 密码修改成功
                         this.successful = true;
