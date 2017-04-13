@@ -96,13 +96,13 @@
                 <label><input type="radio" v-model="numbersLength" class="ant-radio-input" :value="20"><span>20</span></label>
                 <label><input type="radio" v-model="numbersLength" class="ant-radio-input" :value="50"><span>50</span></label>
                 <label><input type="radio" v-model="numbersLength" class="ant-radio-input" :value="0"><span>其它</span></label>
-                <input class="ant-input-number-input" v-model.trim.number="customNumbersLength" v-if="numbersLength === 0">
+                <input class="ant-input-qita-input" v-model.trim.number="customNumbersLength" v-if="numbersLength === 0">
             </div>
             <div style="margin-bottom: 16px;">
                 <span style="margin-left: 8px;">追<span class="red">{{ numbers.length }}</span>期</span>
             </div>
             <div class="ant-table-small" style="width: 95%">
-                <div style="margin-bottom: -8px; padding-bottom: 0px;">
+                <div style="margin-bottom:0px; padding-bottom: 0px;">
                     <table>
                         <colgroup>
                             <col>
@@ -133,7 +133,7 @@
                             <col>
                         </colgroup>
                         <tbody class="ant-table-tbody">
-                            <tr class="ant-table-row" v-for="futureLottery in futureLotteries">
+                            <tr class="ant-table-zh" v-for="futureLottery in futureLotteries">
                                 <td class="ant-table-selection-column"><input type="checkbox" class="ant-checkbox-input" v-model="numbers" :value="futureLottery.number"> </td>
                                 <td>{{ futureLottery.number }}</td>
                                 <td>{{ futureLottery.beginTime }}</td>
