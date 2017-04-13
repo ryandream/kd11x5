@@ -2644,6 +2644,7 @@
         -ms-flex-direction: column;
         flex-direction: column;
         width: 100%;
+        text-align: center;
     }
     .ball-items {
         float: left;
@@ -2894,6 +2895,13 @@
     .colunm_Form td{
         padding-top: 15px;
         min-height: 30px;
+        position: relative;
+    }
+    .colunm_Form td.error .validate{
+        left: 320px;
+        top: 18px;
+        position: absolute;
+        color: #f7604b;        
     }
     .inputer_6u {
         display: -webkit-box;
@@ -2945,10 +2953,14 @@
     }
     .ant-table-small .ant-table-header .ant-table-thead>tr>th, .ant-table-small .ant-table-row:last-child td {
         border-bottom: 0;
+
     }
 
     .ant-table-small .ant-table-footer, .ant-table-small .ant-table-thead>tr>th, .ant-table-small .ant-table-title {
-        padding: 16px 8px;
+        padding: 16px 8px !important;
+        background: #fff !important;
+        border-bottom: 0;
+        border-right: 0;
     }
     .ant-table-thead>tr>th {
         text-align: center;
@@ -2961,8 +2973,9 @@
         position: relative;
     }
     .ant-table-small .ant-table-tbody>tr>td {
-        padding: 16px 8px;
+        padding: 12px 8px;
         text-align: center;
+        border-right: 0;
 
     }
     .ant-table-tbody>tr>td.ant-table-selection-column, .ant-table-thead>tr>th.ant-table-selection-column {
@@ -2974,17 +2987,16 @@
     }
     .submit_Submit {
         display: block;
-        height: 34px;
+        height: 44px;
         width: 138px;
         color: #fff;
         font-size: 16px;
         cursor: pointer;
-        line-height: 24px;
+        line-height: 44px;
         background: #ed3746;
-        margin: 0 auto;
+        margin: 20px auto;
         border: none;
         text-align: center;
-        padding-top: 10px;
     }
 
     .ant-table table {
@@ -3011,6 +3023,10 @@
         position: relative;
     }
     .ant-table-row td:nth-child(2) {
+        color: red;
+        font-weight: 700;
+    }
+    .ant-table-zh td:nth-child(2) {
         color: red;
         font-weight: 700;
     }
@@ -3191,6 +3207,9 @@
         font-size: 1.17em;
         color: #666;
     }
+    .bottom_boxs h3 b{
+        font-weight: 500;
+    }
     .bottom_box_playmethod {
         width: 700px;
         margin: 0 auto -1px auto;
@@ -3199,6 +3218,9 @@
         line-height: 34px;
         font-size: 1.17em;
         color: #666;
+    }
+   .bottom_box_playmethod h3 b{
+        font-weight: 500;
     }
     .big_defaultValue, .even_defaultValue {
         color: #fe8622;
@@ -3224,7 +3246,71 @@
         width: 700px;
         box-sizing: border-box;
     }
-
+    .content_openprizehistory table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        text-align: left;
+        border-radius: 4px 4px 0 0;
+        overflow: hidden;
+        border-collapse: separate;
+        border-spacing: 0;
+        text-align: left;
+    }
+    .content_openprizehistory table .ant-table-thead > tr > th {
+        padding: 10px 8px;
+        text-align: center;
+        background: #f7f7f7;
+        font-weight: 700;
+        border-right: 0;
+    }
+    .content_openprizehistory table .ant-table-tbody > tr > td {
+        border-bottom: 1px solid #e9e9e9;
+        padding: 10px 8px;
+        text-align: center;
+        position: relative;
+        border-right: 0;
+    }
+    .content_openprizehistory table .ant-table-tbody tr:hover td {
+        background: #eaf8fe;
+    }
+    .content_openprizehistory table .ant-table-tbody tr:nth-child(2n) {
+        background: #f8fbfd;
+    }
+    .content_openprizehistory table .ant-table-tbody > tr > td:nth-child(2) {
+        color: red;
+        font-weight: 700;
+    }
+    .content_openprizehistory table .ant-table-tbody > tr > td .bg_purple{
+        color: #0072e3;
+        font-size: 14px;
+        font-weight: 700;
+        background: none;
+    }
+    .content_openprizehistory table .ant-table-tbody > tr > td .bg_green{
+        color: #0072e3;
+        font-size: 14px;
+        font-weight: 700;
+        background: none;
+    }
+    .content_openprizehistory table .ant-table-tbody > tr > td .bg_zyell{
+        color: #fe8622;
+        font-size: 14px;
+        font-weight: 700;
+        background: none;  
+    } 
+    .content_openprizehistory table .ant-table-tbody > tr > td .bg_blue{
+        color: #fe8622;
+        font-size: 14px;
+        font-weight: 700;
+        background: none;  
+    } 
+    .content_openprizehistory table .ant-table-tbody > tr > td .numcolor{
+        color: #d60acf;
+        font-size: 14px;
+        font-weight: 700;
+        background: none; 
+    }  
     .helpContent table {
         width: 100%;
         border-collapse: separate;
@@ -3238,15 +3324,13 @@
         background-color: #e8e8e8!important;
     }
     .helpContent .ant-table-thead>tr>th,.helpContent .ant-table-tbody>tr>td{
-        padding: 16px 8px;
+        padding: 16px 8px !important;
         word-break: break-all;
+        border-right: 0;
+        font-size: 12px;
     }
     .helpContent .ant-table-thead>tr>th{
         background: #f7f7f7;
-    }
-    .helpContent .ant-table-row td:nth-child(2) {
-        color:#666;
-        font-weight: 400;
     }
 
     .helpContent table tr:nth-child(even) {
@@ -3261,20 +3345,27 @@
     }
     .helpContent tbody tr td:nth-child(1) {
         width: 12%;
+        color:#666 !important;
     }
     .helpConten tbody tr td:nth-child(2) {
         width: 13%;
+        color:#666 !important;
+        
     }
     .helpContent tbody tr td:nth-child(3) {
         width: 22%;
+        color:#666 !important;
         padding-right: 5px!important;
+        font-weight: 400 !!important;
     }
     .helpContent tbody tr td:nth-child(4) {
         width: 38%;
+        color:#666 !important;
         padding-left: 9px!important;
     }
     .helpContent tbody tr td:nth-child(5) {
         width: 15%;
+        color:#666 !important;
     }
     .more_kje{
         margin-left: 573px;
@@ -3339,6 +3430,8 @@
         text-align: center!important;
         padding: 4px 0!important;
         font-size: 13px;
+        border-right:0; 
+        border-bottom:0;
     }
     .contentdata_openprizedata table tr {
         height: 42px!important;
@@ -3582,7 +3675,7 @@
         width: 1px;
         background: #ccc;
     }
-    .ant-input-number-input {
+    .ant-input-qita-input {
         width:51px;
         outline: 0;
         -moz-appearance: textfield;
