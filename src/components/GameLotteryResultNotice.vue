@@ -2,7 +2,7 @@
     <div class="gameBet_right">
         <div class="title_openprizehistory">
             <span class="fl_openprizehistory"><i class="icofont_openprizehistory"></i>开奖公告</span>
-            <span class="fr_openprizehistory"><a data-type="sywsh">开奖历史</a></span>
+            <span class="fr_openprizehistory"><router-link :to="'/history/' + currentGame.id">开奖历史</router-link></span>
         </div>
         <div class="contentdata_openprizedata">
             <table>

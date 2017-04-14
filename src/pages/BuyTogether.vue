@@ -15,7 +15,7 @@
                     <div class="button_styles">
                         <router-link :to="'/game/' + currentGame.id">发起合买</router-link>
                         <router-link :to="'/game/' + currentGame.id">我要自购</router-link>
-                        <router-link :to="'/game/' + currentGame.id">我的合买</router-link>
+                        <router-link :to="'/buy-together/' + currentGame.id">我的合买</router-link>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                             <div class="validate" v-if="alert.validate">{{ alert.validate }}</div>
                         </div>
                         <div class="ant-confirm-btns">
-                            <button type="button" class="ant-btn-lg" @click="close"><span>取消</span></button>
+                            <button type="button" class="ant-btn-lg" @click="close"><span>{{ alert.status === 'success' ? '确定' : '取消' }}</span></button>
                             <button v-if="alert.status !== 'success'" type="button" class="ant-btn-lg" @click="joinToTogetherBuy" :disabled="alert.status === 'error'"><span>确定</span></button>
                         </div>
                     </div>

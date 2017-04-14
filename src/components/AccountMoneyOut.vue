@@ -269,7 +269,7 @@
             },
             validateAmount(val){
                 if(val === ''){
-                    this.validators.amount = '充值金额不能为空！';
+                    this.validators.amount = '提现金额不能为空！';
                     return false;
                 }
 

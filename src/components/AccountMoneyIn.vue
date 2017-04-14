@@ -21,24 +21,26 @@
                         </div>
                         <template v-if="type === 'bank'">
                             <div class="ant-form-item">
-                                <div class="ant-form-item-label">银行：</div>
+                                <div class="ant-form-item-label">转入银行：</div>
                                 <div class="ant-col-20"><select class="ant-input" style="width: 140px;" v-model="bankName">
                                     <option v-for="bank in bankList" :value="bank">{{ bank }}</option>
                                 </select></div>
                             </div>
                             <div class="ant-form-item" :class="{error: !!validators.bankCardNo, success: validators.bankCardNo === false}">
-                                <div class="ant-form-item-label">银行卡号：</div>
+                                <div class="ant-form-item-label">转入卡号：</div>
                                 <div class="ant-col-20"><input class="ant-input" style="width: 200px;" type="text" v-model.trim="bankCardNo"></div>
                             <div class="validate" v-if="validators.bankCardNo">{{ validators.bankCardNo }}</div>
                             </div>
                             <div class="ant-form-item" :class="{error: !!validators.userNameOfbankCard, success: validators.userNameOfbankCard === false}">
-                                <div class="ant-form-item-label">户名：</div>
+                                <div class="ant-form-item-label">转入户名：</div>
                                 <div class="ant-col-20"><input class="ant-input" style="width: 120px;" type="text" v-model.trim="userNameOfbankCard"></div>
                             <div class="validate" v-if="validators.userNameOfbankCard">{{ validators.userNameOfbankCard }}</div>
                             </div>
                         </template>
                         <div class="ant-form-item" v-else :class="{error: !!validators.userName, success: validators.userName === false}">
-                            <div class="ant-form-item-label">账号：</div>
+                            <div class="ant-form-item-label" v-if="type === 'weixin'">付款微信：</div>
+                            <div class="ant-form-item-label" v-else-if="type === 'alipay'">付款支付宝：</div>
+                            <div class="ant-form-item-label" v-else>付款账号：</div>
                             <div class="ant-col-20"><input class="ant-input" style="width: 120px;" type="text" v-model.trim="userName"></div>
                             <div class="validate" v-if="validators.userName">{{ validators.userName }}</div>
                         </div>

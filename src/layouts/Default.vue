@@ -90,9 +90,24 @@
                         return;
                     }
 
+                    let vm = this;
+
                     if(json.I === 0){ // 下线
                         this.setUser({
                             isUserLogined: false
+                        });
+                        this.$alert({
+                            type: "info",
+                            title: "温馨提示：",
+                            content: "您的账户在另一个地方登录，如果不是您本人操作，请尽快更改登录密码，以确保安全！",
+                            cancelButton: function(){
+                                vm.$router.push({
+                                    name: 'LoginPage',
+                                    query: {
+                                        redirect: this.$route.fullPath
+                                    }
+                                });
+                            }
                         });
                     }else{
                         if(json.A === 1){
