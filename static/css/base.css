@@ -48,6 +48,18 @@ body .fn-hide {
 .fn-right {
     float: right;
 }
+.colorred{
+   color:#f73d3d;
+}
+.colorblue{
+   color:#0883ce;
+}
+.colorblue1{
+   color:#0023a6;
+}
+.colorgreen{
+   color:#3f983a;
+}
 .hidden {
     overflow: hidden;
 }

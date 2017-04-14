@@ -3,15 +3,15 @@
         <div class="content_styles">
             <div class="continous-title">追号详情</div>
             <div class="continous-userinfo">
-                <div class="continous-user-name">追号用户： {{ userName }}</div>
-                <div class="continous-game-name">玩法名称： {{ gameName }}</div>
+                追号用户： {{ userName }}
+                <span>玩法名称： {{ gameName }}</span>
             </div>
             <div class="table_styles">
                 <div class=" clearfix">
                     <div class="ant-table">
-                        <div class="ant-table-title">方案信息</div>
+                        <div class="ant-table-title tit"><b>方案信息</b></div>
                         <div class="ant-table-content">
-                            <table width="100%">
+                            <table width="100%" class="zhui_table">
                                 <colgroup>
                                     <col>
                                     <col>
@@ -19,7 +19,7 @@
                                     <col>
                                     <col>
                                 </colgroup>
-                                <thead class="ant-table-thead1">
+                                <thead class="ant-table-thead11">
                                     <tr>
                                         <th><span>追号类型</span></th>
                                         <th><span>总追号金额</span></th>
@@ -43,15 +43,15 @@
                 </div>
                 <div class=" clearfix">
                     <div class="ant-table">
-                        <div class="ant-table-title">投注内容</div>
-                        <div class="ant-table-content">
-                            <ul v-if="bettingContent.length > 0">
+                        <div class="ant-table-title colorgreen tit"><b>投注内容</b></div>
+                        <div class="ant-table-content zhuf">
+                            <ul class="ant-card-body" v-if="bettingContent.length > 0">
                                 <li v-for="item in bettingContent">
-                                    {{ item.name }}
+                                    <span style="width:7%;display:inline-block">{{ item.name }}<small class="red">{{ item.content }}</small></span>
                                     <span>
-                                        <small class="red">{{ item.content }}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注数：
-                                        <small class="red">{{ item.count }}</small>注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;倍数：
-                                        <small class="red">{{ item.multiple }}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本注金额：
+                                        注数：
+                                        <small class="red">{{ item.count }}</small>注&nbsp;&nbsp;&nbsp;&nbsp;倍数：
+                                        <small class="red">{{ item.multiple }}</small>&nbsp;&nbsp;&nbsp;&nbsp;本注金额：
                                         <small class="red">￥{{ item.amount }}</small>
                                     </span>
                                 </li>
@@ -61,9 +61,9 @@
                 </div>
                 <div class=" clearfix">
                     <div class="ant-table">
-                        <div class="ant-table-title">追号详情</div>
+                        <div class="ant-table-title tit"><b>追号详情</b></div>
                         <div class="ant-table-content">
-                            <table width="100%" v-if="continousDetail.length > 0">
+                            <table width="100%" v-if="continousDetail.length > 0" class="zhui_table">
                                 <colgroup>
                                     <col>
                                     <col>
@@ -73,7 +73,7 @@
                                     <col>
                                     <col>
                                 </colgroup>
-                                <thead class="ant-table-thead1">
+                                <thead class="ant-table-thead11">
                                     <tr>
                                         <th><span>序号</span></th>
                                         <th><span>期号</span></th>

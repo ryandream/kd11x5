@@ -26,7 +26,7 @@
                     <div class="ant-table">
                         <div class="ant-table-title">方案信息</div>
                         <div class="ant-table-content">
-                            <table width="100%">
+                            <table width="100%" class="zhui_table">
                                 <colgroup>
                                     <col>
                                     <col>
@@ -53,12 +53,12 @@
                                     <tr class="ant-table-row">
                                         <td>{{ gameName }}</td>
                                         <td>{{ type }}</td>
-                                        <td>￥{{ totalAmount }}</td>
-                                        <td>{{ totalCount }}份</td>
-                                        <td>￥{{ unitAmount }}</td>
-                                        <td>{{ bonus }}</td>
-                                        <td>{{ usersLength }}人</td>
-                                        <td><div>{{ progress }}</div></td>
+                                        <td class="colorred"><b>￥{{ totalAmount }}</b></td>
+                                        <td class="colorred"><b>{{ totalCount }}份</b></td>
+                                        <td class="colorred"><b>￥{{ unitAmount }}</b></td>
+                                        <td class="colorred"><b>{{ bonus }}</b></td>
+                                        <td class="colorred"><b>{{ usersLength }}人</b></td>
+                                        <td class="colorred"><div><b>{{ progress }}</b></div></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -69,7 +69,7 @@
                     <div class="ant-table">
                         <div class="ant-table-title">方案详情</div>
                         <div class="ant-table-content">
-                            <table width="100%">
+                            <table width="100%" class="zhui_table">
                                 <colgroup>
                                     <col>
                                     <col>
@@ -119,14 +119,14 @@
                 <div class="content">
                     <div class="qie_huan" :class="'tab-' + tabNav">
                         <div class="qid">
-                            <ul>
+                            <ul class="ant-card-body1">
                                 <li v-if="bettingContent.length === 0">没有数据</li>
                                 <li v-else v-for="item in bettingContent">
-                                    {{ item.name }}
+                                    <span style="width:7%;display:inline-block">{{ item.name }}<small class="red">{{ item.content }}</small></span>
                                     <span>
-                                        <small class="red">{{ item.content }}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注数：
-                                        <small class="red">{{ item.count }}</small>注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;倍数：
-                                        <small class="red">{{ item.multiple }}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本注金额：
+                                         注数：
+                                        <small class="red">{{ item.count }}</small>注&nbsp;&nbsp;&nbsp;&nbsp;倍数：
+                                        <small class="red">{{ item.multiple }}</small>&nbsp;&nbsp;&nbsp;&nbsp;本注金额：
                                         <small class="red">￥{{ item.amount }}</small>
                                     </span>
                                 </li>

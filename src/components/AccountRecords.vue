@@ -144,8 +144,8 @@
                                 <td>{{ lengthPerPage * (sheetRecordOfContinueBetting.currentPage - 1) + (index + 1) }}</td>
                                 <td>{{ gameList[item.gameId].name }}</td>
                                 <td>{{ item.time }}</td>
-                                <td>{{ item.amount }}</td>
-                                <td>{{ item.finishedNumbersLength }}/{{ item.totalNumbersLength }}</td>
+                                <td class="colorred">{{ item.amount }}</td>
+                                <td class="colorblue">{{ item.finishedNumbersLength }}/{{ item.totalNumbersLength }}</td>
                                 <td>{{ item.cancelNumbersLength }}</td>
                                 <td>{{ item.status }}</td>
                                 <td><router-link :to="'/record-detail-of-continous-betting/' + item.gameId + '/' + item.id">详情</router-link></td>
@@ -190,8 +190,8 @@
                             <tr class="ant-table-row" v-else v-for="(item, index) in sheetRecordOfMoneyIn.list" :data-id="item.id">
                                 <td>{{ lengthPerPage * (sheetRecordOfMoneyIn.currentPage - 1) * (index + 1) }}</td>
                                 <td>{{ item.time }}</td>
-                                <td>{{ item.money }}</td>
-                                <td>{{ item.balance }}</td>
+                                <td class="colorblue1">{{ item.money }}</td>
+                                <td class="colorblue1">{{ item.balance }}</td>
                                 <td>{{ item.type }}</td>
                             </tr>
                         </tbody>

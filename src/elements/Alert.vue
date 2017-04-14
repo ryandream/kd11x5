@@ -184,6 +184,11 @@
         color: #87d068;
         font-family: anticon !important
     }
+    .ant-modal-body > .anticon.ant-confirm-loading:before {
+        content:"\E640";
+        color:#2cd;
+        font-family: anticon !important
+    }
     .ant-modal-body .ant-confirm-title {
         color: #666;
         font-weight: 700;
@@ -194,6 +199,10 @@
         font-size: 12px;
         color: #666;
         margin-top: 8px;
+    }
+    .ant-modal-body .ant-confirm-content .validate{
+        color: #f7604b; 
+        padding: 10px 0;
     }
     .ant-confirm-btns {
         margin-top: 30px;

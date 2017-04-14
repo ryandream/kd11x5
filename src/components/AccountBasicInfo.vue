@@ -30,12 +30,13 @@
                     余额：<span class="fs24_righthead">{{ balance }}</span> 元
                 </p>
                 <p>
-                    <i class="anticon anticon-exclamation-circle icon_righthead_3XWlY"></i>
+                    <i class="anticon anticon-exclamation-circle icon_righthead_3XWlY" @mouseenter="showDescriptionTipBox" @mouseleave="hideDescriptionTipBox"></i>
                     积分：
                     <span class="colred_righthead">{{ score }}</span>
                     <span class="space_righthead">冻结金额：</span>
                     <span class="colred_righthead">{{ frozenFund }}</span> 元
                 </p>
+                <mod-account-score-description-tip-box v-if="isShowedTipBox"></mod-account-score-description-tip-box>
             </div>
             <div class="button_righthead">
                 <router-link to="/account/money-in" class="btn_button btn-warn_button">充值</router-link>
@@ -56,8 +57,15 @@
 </template>
 
 <script>
+    import AccountScoreDescriptionTipBox from './AccountScoreDescriptionTipBox';
+
     export default {
         name: 'AccountBasicInfo',
+        data(){
+            return {
+                isShowedTipBox: false
+            };
+        },
         computed: {
             // state
             userName(){
@@ -112,9 +120,18 @@
             // actions
             fetchUserDetail(){
                 return this.$store.dispatch('uFetchUserDetail');
-            }
+            },
 
             // methods
+            showDescriptionTipBox(){
+                this.isShowedTipBox = true;
+            },
+            hideDescriptionTipBox(){
+                this.isShowedTipBox = false;
+            }
+        },
+        components: {
+            modAccountScoreDescriptionTipBox: AccountScoreDescriptionTipBox
         }
     };
 </script>
