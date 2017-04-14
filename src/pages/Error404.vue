@@ -1,7 +1,12 @@
 <template>
-    <main class="kd-body error404">
-        <p>您查到的页面不存在！</p>
-        <router-link to="/" class="ant-btn ant-btn-lg">返回首页</router-link>
+    <main class="kd-body error404">      
+        <div class="error_style_404">
+		   <h1 class="not_style_b">您查到的页面不存在！
+		       <div>		       
+		          <router-link to="/" class="error_btn">返回首页</router-link>
+		       </div>
+		   </h1>
+		</div>
     </main>
 </template>
 

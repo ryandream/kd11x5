@@ -19,10 +19,10 @@
                     </div>
                 </div>
             </div>
-            <div class="table_styles">
+            <div class="table_styles hemai">
                 <div class="ant-table">
-                    <div class="ant-table-title">{{ currentGame.name }}</div>
-                    <div class="ant-table-content">
+                    <div class="ant-table-title tit">{{ currentGame.name }}</div>
+                    <div class="ant-table-content hemaid">
                         <table>
                             <colgroup>
                                 <col>
@@ -36,7 +36,7 @@
                                 <col>
                                 <col>
                             </colgroup>
-                            <thead class="ant-table-thead">
+                            <thead class="ant-table-thead hea">
                                 <tr>
                                     <th><span>序号</span></th>
                                     <th><span>发起人</span></th>
@@ -50,7 +50,7 @@
                                     <th><span>操作</span></th>
                                 </tr>
                             </thead>
-                            <tbody class="ant-table-tbody">
+                            <tbody class="ant-table-tbody hea">
                                 <tr v-if="list.length === 0">
                                     <td colspan="10">暂时没有数据</td>
                                 </tr>
@@ -63,7 +63,7 @@
                                     <td>￥{{ item.totalAmount }}</td>
                                     <td>￥{{ item.unitAmount }}</td>
                                     <td>{{ item.remainCount }}份</td>
-                                    <td><span v-if="item.disabledBuy">{{ item.status }}</span><input v-else class="ant-input-number-input" type="number" v-model="item.count"></td>
+                                    <td><span class="chupiao" v-if="item.disabledBuy">{{ item.status }}</span><input v-else class="ant-input-gou-input" type="number" v-model="item.count"></td>
                                     <td>
                                         <span>
                                             <a @click="goToJoin(item, index)" :class="{'tdisabled_styles': item.disabledBuy}">参与</a>

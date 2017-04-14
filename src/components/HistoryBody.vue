@@ -22,7 +22,7 @@
             </div>
 
         </div>
-        <div class="ant-table">
+        <div class="ant-table history_table">
             <div class="ant-table-body">
                 <table>
                     <colgroup>
@@ -48,8 +48,8 @@
                         <tr class="ant-table-row" v-else v-for="(item, index) in history.list">
                             <td><a href="#">{{ item.time }}</a></td>
                             <td>{{ item.number }}</td>
-                            <td>{{ item.balls }}</td>
-                            <td>{{ andValues[index].andValue }}</td>
+                            <td class="colorred"><b>{{ item.balls }}</b></td>
+                            <td class="colorred">{{ andValues[index].andValue }}</td>
                             <td><em :class="andValues[index].largeOrSmall.class">{{ andValues[index].largeOrSmall.name }}</em></td>
                             <td><em :class="andValues[index].oddOrEven.class">{{ andValues[index].oddOrEven.name }}</em></td>
                         </tr>

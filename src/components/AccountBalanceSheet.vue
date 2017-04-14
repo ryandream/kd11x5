@@ -46,7 +46,7 @@
                                 <td>{{ item.time }}</td>
                                 <td>{{ item.income > 0 ? item.income : '' }}</td>
                                 <td>{{ item.spend > 0 ? '-' + item.spend : '' }}</td>
-                                <td>{{ item.balance }}</td>
+                                <td class="colorblue1">{{ item.balance }}</td>
                                 <td>{{ item.type }}</td>
                                 <td>{{ item.comment }}</td>
                             </tr>
