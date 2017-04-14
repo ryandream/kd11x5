@@ -364,6 +364,9 @@
             }
         },
         created(){
+            if(this.$route.query.continue){
+                this.switchPanel('recordOfContinueBetting');
+            }
             this.fetchBettingRecords(1);
         },
         mounted(){

@@ -23,7 +23,7 @@
                 </ul>
                 <div class="btn-w30">
                 <button class="ant-btn-primary" @click="doLogin">点击登录</button>
-                    <span>没有账号？<router-link to="/register">点击注册</router-link> <a href="" target="_blank" style="color: red; font-size: 14px;">/在线客服</a></span>
+                    <span>没有账号？<router-link to="/register">点击注册</router-link> <a href="javascript:;" style="color: red; font-size: 14px;">/在线客服</a></span>
                 </div>
             </div>
             <div class="lf_fr">

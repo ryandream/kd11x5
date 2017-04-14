@@ -9,7 +9,7 @@
                     <div class="all_sort" id="leixing" v-show="isHomePage || isCategoriesShowed">
                         <ul class="index_sub">
                             <li class="con_index" v-for="game in gameList">
-                                <router-link class="ticket_list" :to="'/game/' + game.id">
+                                <router-link class="ticket_list" :to="'/game/' + game.id" exact>
                                     <img class="sywicon_navbanner" :class="'navbanner_' + game.id">
                                     <i>{{ game.name }}</i>
                                     <em>{{ game.advantage }}</em>
@@ -19,22 +19,22 @@
                     </div>
                 </li>
                 <li class="ant-menu-item">
-                    <router-link to="/">首页</router-link>
+                    <router-link to="/" exact>首页</router-link>
                 </li>
                 <li class="ant-menu-item">
-                    <router-link :to="'/buy-together/' + (currentGame === null ? 'sd' : currentGame.id)">合买大厅</router-link>
+                    <router-link :to="'/buy-together/' + (currentGame === null ? 'sd' : currentGame.id)" exact>合买大厅</router-link>
                 </li>
                 <li class="ant-menu-item">
-                    <router-link :to="'/history/' + (currentGame === null ? 'sd' : currentGame.id)">历史开奖</router-link>
+                    <router-link :to="'/history/' + (currentGame === null ? 'sd' : currentGame.id)" exact>历史开奖</router-link>
                 </li>
                 <li class="ant-menu-item">
-                    <router-link to="/activities">优惠活动</router-link>
+                    <router-link to="/activities" exact>优惠活动</router-link>
                 </li>
                 <li class="ant-menu-item">
-                    <router-link to="/cooperation">代理合作</router-link>
+                    <router-link to="/cooperation" exact>代理合作</router-link>
                 </li>
                 <li class="ant-menu-item">
-                    <router-link to="/on-phone-buy">手机购彩</router-link>
+                    <router-link to="/on-phone-buy" exact>手机购彩</router-link>
                 </li>
             </ul>
         </div>

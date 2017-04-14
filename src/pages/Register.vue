@@ -42,7 +42,7 @@
             </ul>
             <div class="btn-w30 wagn">
                 <button class="ant-btn-primary" @click="doRegister">点击注册</button>
-                <span>已有账号？<router-link to="login">点击登录</router-link> <a href="" target="_blank" style="color: red; font-size: 14px;">/在线客服</a></span>
+                <span>已有账号？<router-link to="login">点击登录</router-link> <a href="javascript:;" style="color: red; font-size: 14px;">/在线客服</a></span>
             </div>
         </div>
     </main>
