@@ -118,8 +118,7 @@
                     this.changeSecureCode();
                     
                     if(json.S === 120){ // 登录成功
-                        this.$alert({
-                            type: 'success',
+                        this.$success({
                             title: '登录成功',
                             content: '欢迎来到十一选五',
                             cancelButton: function(){
@@ -136,8 +135,7 @@
                         });
                         this.fetchUserInfo();
                     }else{
-                        this.$alert({
-                            type: 'error',
+                        this.$error({
                             title: '失败',
                             content: json.S + ': ' + json.D,
                             cancelButton: function(){

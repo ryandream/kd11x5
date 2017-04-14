@@ -24,7 +24,7 @@
             </ul>
             <div class="amount_righthead">
                 <p>
-                    <a href="javasctipt:;" title="刷新余额">
+                    <a href="javascript:;" title="刷新余额">
                         <i class="anticon anticon-reload icon_righthead_3XWlY"></i>
                     </a>
                     余额：<span class="fs24_righthead">{{ balance }}</span> 元

@@ -95,9 +95,7 @@
                             mobile: this.mobile
                         });
                     }else{
-                        this.$alert({
-                            type: 'error',
-                            title: '错误',
+                        this.$error({
                             content: json.S + ': ' + json.D
                         });
                     }

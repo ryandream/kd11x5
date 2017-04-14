@@ -213,9 +213,7 @@
                     if(json.S === 320){
                         this.caption = json.D;
                     }else{
-                        this.$alert({
-                            type: 'error',
-                            title: '错误',
+                        this.$error({
                             content: json.S + ': ' + json.D
                         });
                     }
@@ -233,13 +231,11 @@
                     if(json.S === 310){
                         this.amount = '';
                         this.agreePayFee = '';
-                        this.$alert({
-                            type: "success",
-                            title: '成功！',
+                        this.$success({
                             content: json.S + ': ' + json.D
                         });
                     }else if(json.S === 306 || json.S === 307){
-                        this.$alert({
+                        this.$info({
                             title: "提醒：",
                             content: json.S + ': ' + json.D,
                             confirmButton: function(){
@@ -251,9 +247,7 @@
                             cancelButtonText: '取消'
                         });
                     }else{
-                        this.$alert({
-                            type: 'error',
-                            title: '错误',
+                        this.$error({
                             content: json.S + ': ' + json.D
                         });
                     }

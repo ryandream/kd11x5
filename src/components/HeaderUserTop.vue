@@ -51,8 +51,7 @@
                 return ajax.apiLogout().then(json => {
                     if(typeof json === 'undefined') return;
                     if(json.S === 190){
-                        this.$alert({
-                            type: 'success',
+                        this.$success({
                             title: '登出成功',
                             content: '欢迎再来十一选五！',
                             cancelButton: function(){

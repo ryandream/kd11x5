@@ -211,9 +211,7 @@
                 }).then(json => {
                     if(typeof json === 'undefined') return;
                     if(json.S === 824){
-                        this.$alert({
-                            type: 'success',
-                            title: "成功！",
+                        this.$success({
                             content: json.S + ': ' + json.D,
                             cancelButton: function(){
                                 vm.amount = '';
@@ -229,9 +227,7 @@
                             }
                         });
                     }else{
-                        this.$alert({
-                            type: 'error',
-                            title: '错误！',
+                        this.$error({
                             content: json.S + ': ' + json.D
                         });
                     }
@@ -252,9 +248,7 @@
                 }).then(json => {
                     if(typeof json === 'undefined') return;
                     if(typeof json.S !== 'undefined'){
-                        this.$alert({
-                            type: 'error',
-                            title: '错误',
+                        this.$error({
                             content: json.S + ': ' + json.D
                         });
                         return;

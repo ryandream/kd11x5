@@ -131,9 +131,7 @@
                 if(this.currentLottery.status === 0) return;
                 let bettingDataList = this.generateBetDatas();
                 if(bettingDataList.length === 0){
-                    this.$alert({
-                        type: "error",
-                        title: "错误",
+                    this.$error({
                         content: "没有投注内容！"
                     });
                     return;
@@ -150,9 +148,7 @@
                 }).then(json => {
                     if(typeof json === 'undefined') return;
                     if(json.S === 200){
-                        this.$alert({
-                            type: "success",
-                            title: "成功！",
+                        this.$success({
                             content: json.S + ': ' + json.D
                         });
                         this.clearCart();
@@ -162,9 +158,7 @@
                             refs.bettingType.numbersLength = 5;
                         }
                     }else{
-                        this.$alert({
-                            type: "error",
-                            title: '提示',
+                        this.$error({
                             content: json.S + ': ' + json.D
                         });
                     }

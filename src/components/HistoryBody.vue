@@ -179,17 +179,13 @@
             },
             searchByIssues(pageNum){
                 if(!this.validateStartNumber(this.startNumber)){
-                    this.$alert({
-                        type: "error",
-                        title: "错误",
+                    this.$error({
                         content: this.validators.startNumber
                     });
                     return false;
                 }
                 if(!this.validateEndNumber(this.endNumber)){
-                    this.$alert({
-                        type: "error",
-                        title: "错误",
+                    this.$error({
                         content: this.validators.endNumber
                     });
                     return false;
@@ -198,9 +194,7 @@
             },
             searchByDate(pageNum){
                 if(!this.validateDate(this.date)){
-                    this.$alert({
-                        type: "error",
-                        title: "错误",
+                    this.$error({
                         content: this.validators.date
                     });
                     return false;

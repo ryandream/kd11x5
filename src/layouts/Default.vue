@@ -96,9 +96,7 @@
                         this.setUser({
                             isUserLogined: false
                         });
-                        this.$alert({
-                            type: "info",
-                            title: "温馨提示：",
+                        this.$info({
                             content: "您的账户在另一个地方登录，如果不是您本人操作，请尽快更改登录密码，以确保安全！",
                             cancelButton: function(){
                                 vm.$router.push({

@@ -16,5 +16,20 @@ Vue.prototype.$promptbox = function(id){
 Vue.prototype.$alert = function(options){
     this.$root.$children[0].$refs.alert.open(options);
 };
+Vue.prototype.$error = function(options){
+    options.type = "error";
+    options.title = '错误！';
+    this.$root.$children[0].$refs.alert.open(options);
+};
+Vue.prototype.$success = function(options){
+    options.type = "success";
+    options.title = "成功！";
+    this.$root.$children[0].$refs.alert.open(options);
+};
+Vue.prototype.$info = function(options){
+    options.type = "info";
+    options.title = "温馨提示！";
+    this.$root.$children[0].$refs.alert.open(options);
+};
 
 // Vue.use(VueFlatpickr);

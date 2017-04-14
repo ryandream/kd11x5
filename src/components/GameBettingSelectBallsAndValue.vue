@@ -113,9 +113,7 @@
                     this.setCart(this.currentGame.id, cart);
                     this.initUnitPrices(cart);
                 }else{
-                    this.$alert({
-                        type: "error",
-                        title: "错误",
+                    this.$error({
                         content: "还有未选号码"
                     });
                 }
