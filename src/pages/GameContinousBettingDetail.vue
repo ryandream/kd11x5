@@ -47,7 +47,7 @@
                         <div class="ant-table-content zhuf">
                             <ul class="ant-card-body" v-if="bettingContent.length > 0">
                                 <li v-for="item in bettingContent">
-                                    <span style="width:7%;display:inline-block">{{ item.name }}<small class="red">{{ item.content }}</small></span>
+                                    <span style="min-width:7%;display:inline-block">{{ item.name }}<small class="red">{{ item.content }}</small></span>
                                     <span>
                                         注数：
                                         <small class="red">{{ item.count }}</small>注&nbsp;&nbsp;&nbsp;&nbsp;倍数：
